@@ -12,14 +12,18 @@ const useSignup = () => {
 
 		setLoading(true);
 		try {
-			const res = await fetch("/api/auth/signup", {
+			const res = await fetch("api/auth/signup", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ fullName, username, password, confirmPassword, gender }),
 			});
-
 			const data = await res.json();
+			if (!res.ok) {
+				// console.log(res);
+				throw new Error("Failed to sign up");
+			}
 			if (data.error) {
+				console.log(data);
 				throw new Error(data.error);
 			}
 			localStorage.setItem("chat-user", JSON.stringify(data));
