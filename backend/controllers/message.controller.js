@@ -1,7 +1,7 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
-import mongoose from "mongoose";
+
 export const uploadImage= async (req,res)=>{
 	console.log(req.body);
 	const { receiverId } = req.body;
