@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 const useSendMessage = () => {
 	const [loading, setLoading] = useState(false);
 	const { messages, setMessages, selectedConversation } = useConversation();
+	const receiverId = selectedConversation._id;
 
 	const sendMessage = async (message) => {
 		setLoading(true);
@@ -14,7 +15,7 @@ const useSendMessage = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ message }),
+				body: JSON.stringify({ message,receiverId }),
 			});
 			const data = await res.json();
 			if (data.error) throw new Error(data.error);
@@ -27,6 +28,6 @@ const useSendMessage = () => {
 		}
 	};
 
-	return { sendMessage, loading };
+	return { sendMessage, loading,receiverId };
 };
 export default useSendMessage;
