@@ -1,7 +1,25 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
+import mongoose from "mongoose";
+export const uploadImage= async (req,res)=>{
+	console.log(req.body);
+	const { receiverId } = req.body;
+	const fileObj={
+		path:req.file.path,
+		name:req.file.originalname,
+		senderId: req.user._id,
+		receiverId: receiverId
+	}
+	try{
+		const file=await Message.create(fileObj);
+		res.status(200).json({path:`http://localhost:5000/api/messages/upload/${file._id}`})
 
+	}catch(error){
+     console.error("Error in file", error.message);
+	 res.status(500).json({error:error.message})
+	}
+}
 export const sendMessage = async (req, res) => {
 	try {
 		const { message } = req.body;
@@ -28,10 +46,6 @@ export const sendMessage = async (req, res) => {
 			conversation.messages.push(newMessage._id);
 		}
 
-		// await conversation.save();
-		// await newMessage.save();
-
-		// this will run in parallel
 		await Promise.all([conversation.save(), newMessage.save()]);
 
 		// SOCKET IO FUNCTIONALITY WILL GO HERE
@@ -50,12 +64,12 @@ export const sendMessage = async (req, res) => {
 
 export const getMessages = async (req, res) => {
 	try {
-		const { id: userToChatId } = req.params;
 		const senderId = req.user._id;
+        const userToChatId = req.params.id;
 
-		const conversation = await Conversation.findOne({
-			participants: { $all: [senderId, userToChatId] },
-		}).populate("messages");
+const conversation = await Conversation.findOne({
+	participants: { $all: [senderId, userToChatId] },
+}).populate("messages");
 
 		if (!conversation) return res.status(200).json([]);
 

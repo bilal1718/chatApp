@@ -14,9 +14,17 @@ const messageSchema = new mongoose.Schema(
 		},
 		message: {
 			type: String,
-			required: true,
 		},
-		// createdAt, updatedAt
+		path:{
+			type:String,
+		},
+		name:{
+			type:String,
+		},
+		downloadContent:{
+			type:Number,
+			default:0
+		}
 	},
 	{ timestamps: true }
 );
