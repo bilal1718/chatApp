@@ -1,4 +1,3 @@
-// Messages.js
 import { useEffect, useRef } from "react";
 import useGetMessages from "../../hooks/useGetMessages";
 // import useGetImages from "../../hooks/useGetImages";
@@ -27,15 +26,6 @@ const Messages = () => {
             <Message  message={message} />
           </div>
         ))}
-
-      {/* {!imagesLoading &&
-        images.length > 0 &&
-        images.map((image) => (
-          <div key={image._id} ref={lastMessageRef}>
-            <img src={`http://localhost:5000/${image.path}`} alt={image.name} />
-          </div>
-        ))} */}
-
       {(messagesLoading) && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
       {!messagesLoading && messages.length === 0  && (
         <p className='text-center'>Send a message to start the conversation</p>
