@@ -1,5 +1,14 @@
 import Group from "../models/group.model.js";
 import User from "../models/user.model.js";
+export const allGroups=async (req,res)=>{
+  try {
+    const groups = await Group.find();
+    return res.status(200).json({ success: true, groups });
+  } catch (error) {
+    console.error('Error getting all groups:', error);
+    return res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+}
     export const createGroup= async (req, res) => {
       try {
         const { name } = req.body;
@@ -64,7 +73,7 @@ import User from "../models/user.model.js";
           return res.status(404).json({ success: false, error: 'Group not found' });
         }
         // Check if the user is a member of the group
-        if (!group.members.includes(memberId)) {
+        if (!(group.members.includes(memberId))) {
           return res.status(400).json({ success: false, error: 'User is not a member of the group' });
         }
         // Remove the user from the group
