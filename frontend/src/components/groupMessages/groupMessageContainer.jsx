@@ -25,20 +25,19 @@ const GroupMessageContainer = () => {
         <NoChatSelected />
       ) : (
         <>
-          {/* Header */}
-          <div className='bg-slate-500 px-4 py-2 mb-2 flex'>
-            <span className='text-gray-900 font-bold text-xl'>{selectedGroup.name}</span>
+           <div className='bg-slate-500 px-4 py-2 mb-2 flex'>
+            <span className='text-gray-900 font-bold text-xl'>{selectedGroup.name}</span> 
             <button
 			onClick={()=>setShowAllMembersModal(true)}
 			 className="bg-blue-500 ml-20 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               All Members
-            </button>
+      </button>
 			{showAllMembersModal ? <AllMembersModal onClose={()=>setShowAllMembersModal(false)} /> : ""}
             <button onClick={() => setShowAddMemberModal(true)} className="bg-gray-900 ml-20 mr-0 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               Add
             </button>
             {showAddMemberModal ? <AddMemberModal onClose={() => setShowAddMemberModal(false)} groupId={selectedGroup._id} /> : ""}
-          </div>
+         </div>
           <GroupMessages />
           <GroupMessageInput />
         </>

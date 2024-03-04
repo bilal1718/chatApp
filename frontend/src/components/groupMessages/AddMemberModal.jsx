@@ -4,11 +4,15 @@ import { AiOutlinePlus } from "react-icons/ai";
 import useGetConversations from "../../hooks/useGetConversations";
 import axios from "axios";
 import toast from "react-hot-toast";
+import useGroups from "../../zustand/useGroups";
 
 const AddMemberModal = ({ onClose,groupId }) => {
   const { conversations } = useGetConversations();
+  const {groupMembers}=useGroups();
   const [addingMember, setAddingMember] = useState(false);
-
+  const usersToAdd = conversations.filter(
+    (conversation) => !groupMembers.some((member) => member._id === conversation._id)
+  );
   const handleAddMember = async (userId) => {
     try {
       setAddingMember(true);
@@ -33,7 +37,7 @@ const AddMemberModal = ({ onClose,groupId }) => {
       <div className="bg-white p-4 rounded-lg z-50 w-96">
         <h2 className="text-xl font-bold mb-4">Add Members</h2>
         <ul>
-          {conversations.map((conversation) => (
+          {usersToAdd.map((conversation) => (
             <li key={conversation._id} className="flex items-center justify-between mb-4">
               <div className="flex items-center">
                 <img src={conversation.profilePic} alt={conversation.fullName} className="w-10 h-10  rounded-full mr-3" />
