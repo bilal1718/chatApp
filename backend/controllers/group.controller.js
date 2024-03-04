@@ -28,58 +28,62 @@ export const allGroups=async (req,res)=>{
         if (!group) {
           return res.status(404).json({ success: false, error: 'Group not found' });
         }
-  
         return res.status(200).json({ success: true, group });
       } catch (error) {
         console.error('Error getting group details:', error);
         return res.status(500).json({ success: false, error: 'Internal Server Error' });
       }
     };
-  
-    export const addMemberToGroup= async (req, res) => {
+    export const addMemberToGroup = async (req, res) => {
       try {
         const groupId = req.params.id;
         const { memberId } = req.body;
-  
+    
         // Check if the user exists
         const user = await User.findById(memberId);
         if (!user) {
           return res.status(404).json({ success: false, error: 'User not found' });
         }
-  
+    
         // Check if the user is already a member of the group
         const group = await Group.findById(groupId);
-        if (group.members.includes(memberId)) {
+        if (group.members.some(member => member._id.toString() === memberId)) {
           return res.status(400).json({ success: false, error: 'User is already a member of the group' });
         }
-  
+    
+    
         group.members.push(memberId);
         await group.save();
-  
+    
         return res.status(200).json({ success: true, group });
       } catch (error) {
         console.error('Error adding member to group:', error);
         return res.status(500).json({ success: false, error: 'Internal Server Error' });
       }
     };
-  
-    export const removeMemberFromGroup= async (req, res) => {
+    export const removeMemberFromGroup = async (req, res) => {
       try {
         const groupId = req.params.id;
-        const { memberId } = req.body;
-  
+        const memberId = req.body.memberId;
+        const username=req.body.username;
+       console.log(req.body)
         const group = await Group.findById(groupId);
         if (!group) {
           return res.status(404).json({ success: false, error: 'Group not found' });
         }
-        // Check if the user is a member of the group
-        if (!(group.members.includes(memberId))) {
+        const memberToRemove = group.members.find((member) => member._id.toString() === memberId);
+        if (!memberToRemove) {
           return res.status(400).json({ success: false, error: 'User is not a member of the group' });
         }
-        // Remove the user from the group
-        group.members = group.members.filter((member) => member.toString() !== memberId);
+        // Remove the member
+        group.members = group.members.filter((member) => member._id.toString() !== memberId);
         await group.save();
-        return res.status(200).json({ success: true, group });
+        // Get the remaining members with their IDs and usernames
+        const remainingMembers = group.members.map((member) => ({
+          id: member._id.toString('hex'),
+          username: username,
+        }));
+        return res.status(200).json({ success: true, remainingMembers });
       } catch (error) {
         console.error('Error removing member from group:', error);
         return res.status(500).json({ success: false, error: 'Internal Server Error' });
@@ -102,21 +106,18 @@ export const allGroups=async (req,res)=>{
         try {
           const groupId = req.params.groupId;
           const { text } = req.body;
+          console.log(req.body);
           const group = await Group.findById(groupId);
-      
           if (!group) {
             return res.status(404).json({ success: false, error: 'Group not found' });
           }
-      
-          const senderId = req.params.userId; // Using req.params.userId to get the user ID
-          if (!group.members.includes(senderId)) {
+          const userId = req.params.userId;
+          if (!group.members.includes(userId)) {
             return res.status(403).json({ success: false, error: 'Sender is not a member of the group' });
           }
-      
-          const message = { sender: senderId, text };
+          const message = { sender: userId, text };
           group.messages.push(message);
           await group.save();
-      
           return res.status(200).json({ success: true, message, group });
         } catch (error) {
           console.error('Error sending message to group:', error);

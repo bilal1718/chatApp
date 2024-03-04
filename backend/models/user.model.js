@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema(
 		username: {
 			type: String,
 			required: true,
-			unique: true, // Add this line to enforce uniqueness
-			index: true
+			unique: true,
+			index: true,
 		},
 		password: {
 			type: String,
@@ -26,7 +26,6 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			default: "",
 		},
-		// createdAt, updatedAt => Member since <createdAt>
 	},
 	{ timestamps: true }
 );

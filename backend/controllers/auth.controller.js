@@ -65,11 +65,15 @@ export const login = async (req, res) => {
 
 		generateTokenAndSetCookie(user._id, res);
 
+		// Check if the user is an admin
+		const isAdmin = user.admin || false;
+
 		res.status(200).json({
 			_id: user._id,
 			fullName: user.fullName,
 			username: user.username,
 			profilePic: user.profilePic,
+			isAdmin,  // Include the admin status in the response
 		});
 	} catch (error) {
 		console.log("Error in login controller", error.message);
