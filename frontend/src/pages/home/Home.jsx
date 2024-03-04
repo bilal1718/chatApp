@@ -1,5 +1,6 @@
-import GroupMessageContainer from "../../components/groupMessages/groupMessageContainer";
+import MessageContainer from "../../components/messages/MessageContainer";
 import Sidebar from "../../components/sidebar/Sidebar";
+import GroupMessageContainer from "../../components/groupMessages/groupMessageContainer"; 
 
 const Home = () => {
 	return (
