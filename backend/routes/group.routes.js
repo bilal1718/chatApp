@@ -15,7 +15,7 @@ router.get('/',allGroups)
 router.post('/create', createGroup);
 router.get('/:id', getGroupDetails);
 router.post('/:id/members/add', addMemberToGroup);
-router.post('/:id/members/remove/:memberId', removeMemberFromGroup);
+router.post('/:id/members/remove', removeMemberFromGroup);
 router.get('/:id/members', getGroupMembers);
 router.post('/:groupId/messages/send/:userId', sendMessageToGroup);
 router.get('/:id/messages', getGroupMessages);
