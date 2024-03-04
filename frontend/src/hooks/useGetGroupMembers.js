@@ -21,7 +21,7 @@ const useGetGroupMembers = () => {
     if (selectedGroup?._id) {
       fetchGroupMembers();
     }
-  }, [selectedGroup?._id, setGroupMembers]);
+  }, [selectedGroup?._id , setGroupMembers]);
 
   return {};
 };

@@ -15,7 +15,6 @@ const useGetGroupMessages = () => {
         const data = await res.json();
         if (data.error) throw new Error(data.error);
         setGroupMessages(data);
-        console.log(data);
       } catch (error) {
         toast.error(error.message);
       } finally {

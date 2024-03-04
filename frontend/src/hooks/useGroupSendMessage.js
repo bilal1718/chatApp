@@ -6,16 +6,15 @@ import axios from "axios";
 
 const useGroupSendMessage = () => {
 	const [loading, setLoading] = useState(false);
-	const { groupMessages, setGroupMessages, selectedGroup } = useGroups();
+	const {  setGroupMessages, selectedGroup } = useGroups();
     const { authUser } = useAuthContext();
-
 	const sendGroupMessage = async (message) => {
 		setLoading(true);
 		try {
 			const response = await axios.post(
-				`/api/groups/${selectedGroup._id}/messages/send/${authUser._id}`, 
+				`/api/groups/${selectedGroup?._id}/messages/send/${authUser?._id}`,
 				{
-					text: message,
+					text: message
 				},
 				{
 					headers: {
@@ -24,14 +23,15 @@ const useGroupSendMessage = () => {
 				}
 			);
 			const data = response.data;
-
+	
 			if (data.error) {
 				throw new Error(data.error);
 			}
-
+	
+			// Use the latest state when updating
 			setGroupMessages((prevGroupMessages) => {
 				return [...prevGroupMessages, data];
-			  });
+			});
 		} catch (error) {
 			toast.error(error.message);
 			console.error(error);
