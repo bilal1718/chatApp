@@ -32,7 +32,7 @@ const AddMemberModal = ({ onClose,groupId }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center">
+    <div className="absolute inset-0 flex items-center justify-center">
       <div className="bg-black opacity-50 fixed inset-0"></div>
       <div className="bg-white p-4 rounded-lg z-50 w-96">
         <h2 className="text-xl font-bold mb-4">Add Members</h2>

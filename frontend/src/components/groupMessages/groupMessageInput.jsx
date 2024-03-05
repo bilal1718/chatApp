@@ -2,18 +2,19 @@
 import { useState } from "react";
 import { BsSend, BsFileEarmarkArrowUp } from "react-icons/bs";
 import useGroupSendMessage from "../../hooks/useGroupSendMessage";
+import useGetGroupMessages from "../../hooks/useGetGroupMessages";
+
 
 const GroupMessageInput = () => {
 	const [message, setMessage] = useState("");
 	const { loading, sendGroupMessage } = useGroupSendMessage();
+	const {getMessages}=useGetGroupMessages();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
 		if (!message) return;
-
 		await sendGroupMessage(message);
-
+		getMessages();
 		setMessage("");
 	};
 

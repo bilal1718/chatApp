@@ -32,7 +32,8 @@ const AddGroupForm = ({ onSubmit, onClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="fixed bottom-0 left-0 right-0 mx-auto p-4 bg-white rounded-t-lg">
+    <form onSubmit={handleSubmit}
+     className="absolute w-96 h-86 bottom-0 left-0 right-0 mx-auto p-4 bg-white rounded-t-lg">
       <button type="button" className="float-right text-gray-600" onClick={handleClose}>
         <span aria-hidden="true">&times;</span>
       </button>
@@ -41,7 +42,7 @@ const AddGroupForm = ({ onSubmit, onClose }) => {
         type="text"
         value={groupTitle}
         onChange={(e) => setGroupTitle(e.target.value)}
-        className="w-full p-2 border rounded"
+        className="w-full p-4 border rounded"
         placeholder="Enter group title"
       />
       <button type="submit" className="mt-2 bg-blue-500 text-white p-2 rounded">Create Group</button>

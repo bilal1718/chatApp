@@ -3,7 +3,7 @@ import { extractTime } from "../../utils/extractTime";
 
 const GroupMessage = ({ message }) => {
 	const { authUser } = useAuthContext();
-	const fromMe = message._id === authUser?._id;
+	const fromMe = message.sender === authUser?._id;
 	const formattedTime = extractTime(message.timestamp);
 	const chatClassName = fromMe ? "chat-end" : "chat-start";
 	const bubbleBgColor = fromMe ? "bg-blue-500" : "";

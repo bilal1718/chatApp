@@ -9,7 +9,6 @@ const GroupMessages = () => {
   const { groupMessages, loading: messagesLoading } = useGetGroupMessages();
   useListenMessages();
   const lastMessageRef = useRef();
-
   useEffect(() => {
     setTimeout(() => {
       lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -30,7 +29,7 @@ const GroupMessages = () => {
         </p>
       )}
 
-      {messagesLoading && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
+      {(messagesLoading) && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
     </div>
   );
 };
