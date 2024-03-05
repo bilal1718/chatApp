@@ -18,6 +18,7 @@ const useSendMessage = () => {
 				body: JSON.stringify({ message,receiverId }),
 			});
 			const data = await res.json();
+			console.log(data);
 			if (data.error) throw new Error(data.error);
 
 			setMessages([...messages, data]);
