@@ -1,3 +1,5 @@
+// server.js
+
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -20,6 +22,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/groups", groupRoutes);
 
+// Use the same server instance for both Express and Socket.io
 server.listen(PORT, () => {
   connectToMongoDB();
   console.log(`Server Running on port ${PORT}`);
