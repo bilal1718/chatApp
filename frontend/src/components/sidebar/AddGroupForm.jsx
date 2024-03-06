@@ -10,6 +10,7 @@ const AddGroupForm = ({ onSubmit, onClose }) => {
       // Make a POST request to the backend API to create a new group
       const response = await axios.post('/api/groups/create', {
         name: groupTitle,
+        
       });
 
       // Check if the request was successful

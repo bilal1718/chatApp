@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import Conversations from "./Conversations";
 import LogoutButton from "./LogoutButton";
 import { Link } from "react-router-dom";
+import SearchInput from "./SearchInput";
 import AddGroupButton from "./AddGroupButton";
 import Groups from "./Groups";
 import { useAuthContext } from "../../context/AuthContext";
+import MessageContainer from "../../components/messages/MessageContainer";
+import GroupMessageContainer from "../../components/groupMessages/groupMessageContainer";
+
 const Sidebar = () => {
   const { authUser } = useAuthContext();
   const [selectedConversation, setSelectedConversation] = useState(null);
@@ -22,7 +27,7 @@ const Sidebar = () => {
   return (
     <div className='border-r  w-[400px] p-4 flex flex-col'>
      <div className='flex items-center'>
-  <div className="flex items-center justify-center rounded-2xl text-indigo-700 h-10 w-10">
+  <div className="flex items-center justify-center rounded-2xl text-indigo-700 bg-indigo-100 h-10 w-10">
     <svg
       className="w-6 h-6"
       fill="none"
@@ -42,17 +47,16 @@ const Sidebar = () => {
 </div>
 
       <div className='divider px-3'></div>
-      <span class="font-bold">Groups</span>
-      <Groups onItemClick={handleGroupClick} />
-      <Link to="/">
+      <span class="font-bold">Conversations</span>
+      <Conversations onItemClick={handleConversationClick} />
+      <Link to="/groups">
       <button type="button" class="text-white bg-blue-700
        hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 
        font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600
-       dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Conversations</button>
+       dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Groups</button>
        </Link>
-      <div className='relative mt-20 left-10 flex space-x-6'>
-        <LogoutButton c />
-        {authUser._id === "65e5b2ac31063737f634c460" ? <AddGroupButton /> : ""}
+      <div className='relative left-40 flex space-x-6'>
+        <LogoutButton />
       </div>
     </div>
   );
