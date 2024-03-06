@@ -1,4 +1,3 @@
-// GroupMessageInput.jsx
 import { useState } from "react";
 import { BsSend, BsFileEarmarkArrowUp } from "react-icons/bs";
 import useGroupSendMessage from "../../hooks/useGroupSendMessage";
@@ -24,7 +23,7 @@ const GroupMessageInput = () => {
 				<input
 					type='text'
 					className='border text-sm rounded-lg ml-10
-					block w-full p-2.5 bg-gray-700 border-gray-600 text-white'
+					block w-full p-2.5 border-gray-600'
 					placeholder='Send a message'
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
@@ -33,7 +32,8 @@ const GroupMessageInput = () => {
 					<BsFileEarmarkArrowUp />
 				</label>
 				<button type='submit' className='absolute inset-y-0 end-0 flex items-center pe-3'>
-					{loading ? <div className='loading loading-spinner'></div> : <BsSend />}
+					{loading ? <div className='loading loading-spinner'></div> : <div className="send-button"> <BsSend />
+    </div>}
 				</button>
 			</div>
 		</form>

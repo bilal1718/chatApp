@@ -7,7 +7,6 @@ import useListenMessages from "../../hooks/useListenMessages";
 
 const Messages = () => {
   const { messages, loading: messagesLoading } = useGetMessages();
-//   const { images, loading: imagesLoading } = useGetImages();
   useListenMessages();
   const lastMessageRef = useRef();
 
