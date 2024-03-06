@@ -1,16 +1,15 @@
-import Sidebar from "../../components/sidebar/Sidebar";
+import Sidebar2 from "../../components/sidebar/Sidebar2";
 import MessageContainer from "../../components/messages/MessageContainer";
-import GroupMessageContainer from "../../components/groupMessages/groupMessageContainer";
 
-const Home = () => {
+const Home2 = () => {
   return (
 <div className="flex h-screen antialiased text-gray-800">
       <div className="flex flex-row h-full w-full overflow-x-hidden">
-      <Sidebar />
-	  <GroupMessageContainer />
+      <Sidebar2/>
+	  <MessageContainer />
     </div>
     </div>
   );
 };
 
-export default Home;
+export default Home2;
